@@ -1,0 +1,10 @@
+{
+    "LOGIN": {
+        "LOGIN_TITLE": "Ingresar",
+        "LOGIN_EMAIL_PLACEHOLDER": "Correo electronico",
+        "LOGIN_PASSWORD_PLACEHOLDER": "Contraseña",
+        "LOGIN_BUTTON_TEXT":"Ingresar",
+        "LOGIN_CREATE_ACCOUNT_TEXT":"Crear cuenta"
+    },
+    "hola":"qwe"
+}

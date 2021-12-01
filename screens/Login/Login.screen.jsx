@@ -8,9 +8,12 @@ import {ContainerView , ContentView , FormView} from '../../styledComponents/Vie
 //TextInputs
 import {FormInput} from '../../styledComponents/Inputs';
 //Buttons
-import { LogInButton , CreateAcountRef } from '../../styledComponents/Buttons';
+import { LoginRegisterButton , CreateAcountRef } from '../../styledComponents/Buttons';
 //Texts
-import {LogInText} from '../../styledComponents/Texts';
+import {LoginRegisterText} from '../../styledComponents/Texts';
+
+//I18n
+import i18n from '../../Localization/i18n';
 
 //Firebase
 import {auth} from '../../firebase';
@@ -29,6 +32,7 @@ const LoginScreen = () => {
             // then is a fullfilled promise
             const user = userCredentials.user;
             console.log("Logged in with:", user.email);
+            alert('Logged');
           })
           .catch((error) => {
             // catch is a rejected promise
@@ -44,7 +48,7 @@ const LoginScreen = () => {
             <ContentView>
                 <FormView>
                     <Text>Login</Text>
-                    <FormInput placeholder="Correo electronico"
+                    <FormInput
                         placeholder="Email"
                         value={email}
                         onChangeText={(text) => setEmail(text)}
@@ -57,9 +61,9 @@ const LoginScreen = () => {
                         style={styles.input}
                         secureTextEntry
                     />
-                    <LogInButton>
-                        <LogInText onPress={handleLogin}>Ingresar</LogInText>
-                    </LogInButton>
+                    <LoginRegisterButton>
+                        <LoginRegisterText onPress={handleLogin}>Ingresar</LoginRegisterText>
+                    </LoginRegisterButton>
                     <TouchableOpacity style={styles.izq} onPress={RegisterNavigation}>
                         <Text>Crear cuenta</Text>
                     </TouchableOpacity>

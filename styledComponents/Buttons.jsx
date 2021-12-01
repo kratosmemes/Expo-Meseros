@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const LogInButton = styled.TouchableOpacity`
+export const LoginRegisterButton = styled.TouchableOpacity`
     border-radius: 10px;
     background-color: #007bff;
     color: white;
