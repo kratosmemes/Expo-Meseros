@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState , useEffect} from 'react';
 import { View , TextInput, TouchableOpacity , StyleSheet, Text } from 'react-native';
 
 import { useNavigation } from "@react-navigation/core"
@@ -24,6 +24,16 @@ const LoginScreen = () => {
     
     //Navigation
     const navigation = useNavigation();
+
+    //Verifica si hay usuario valido y si lo hay lo manda a home
+    useEffect(() => {
+        const unsuscribe = auth.onAuthStateChanged((user) => {
+            if(user){
+                navigation.navigate('Login');
+            }
+        })
+        return unsuscribe;
+    }, [])
     
     const handleLogin = async() => {
         await auth
@@ -32,7 +42,7 @@ const LoginScreen = () => {
             // then is a fullfilled promise
             const user = userCredentials.user;
             console.log("Logged in with:", user.email);
-            alert('Logged');
+            navigation.navigate('Home');
           })
           .catch((error) => {
             // catch is a rejected promise

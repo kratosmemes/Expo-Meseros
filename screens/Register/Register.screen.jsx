@@ -1,4 +1,4 @@
-import { View , Text , StyleSheet , TouchableOpacity} from 'react-native';
+import { View , Text , StyleSheet , TouchableOpacity , Picker} from 'react-native';
 import React , {useState} from 'react';
 
 import { useNavigation } from "@react-navigation/core"
@@ -13,30 +13,42 @@ import { LoginRegisterButton , CreateAcountRef } from '../../styledComponents/Bu
 import {LoginRegisterText, LogInText} from '../../styledComponents/Texts';
 
 //Firebase
-import {auth} from '../../firebase';
+import {auth , db} from '../../firebase';
+import { collection , addDoc} from '@firebase/firestore';
 
 const RegisterScreen = () => {
 
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
-  
+    const [nombre, setNombre] = useState("");
+    const [tipo, setTipo] = useState("");
+
           
     const navigation = useNavigation();
 
     //Funcion registro
-    const handleSignup = () => {
-        auth
+    const handleSignup = async() => {
+        await auth
           .createUserWithEmailAndPassword(email, pwd)
-          .then((userCredentials) => {
+          .then(async(userCredentials) => {
             // then is a fullfilled promise
             const user = userCredentials.user;
-            console.log(user.email);
-            navigation.navigate('Login');
-          })
-          .catch((error) => {
+            console.log(user.uid);
+            try{
+                const docRef = await addDoc(collection(db , 'usuario'), {
+                    "correo": email,
+                    "contrasena": pwd,
+                    "nombre": nombre,
+                    "tipo": tipo,
+                });
+            }catch(e){
+                    alert(e.message);
+            };
+        },navigation.navigate("Login"))
+        .catch((error) => {
             // catch is a rejected promise
             alert(error.message);
-          });
+        });
 };
 
 
@@ -58,6 +70,19 @@ const RegisterScreen = () => {
                     value={pwd}
                     onChangeText={(text) => setPwd(text)}
                     />
+                    <FormInput
+                    placeholder="Nombre completo"
+                    value={nombre}
+                    onChangeText={(text) => setNombre(text)}
+                    />
+                    <Picker
+                        selectedValue={tipo}
+                        style={{ height: 50, width: 150 }}
+                        onValueChange={(itemValue, itemIndex) => setTipo(itemValue)}
+                    >
+                        <Picker.Item label="Mesero" value="mesero" />
+                        <Picker.Item label="Cliente" value="cliente" />
+                    </Picker>
                     <LoginRegisterButton onPress={handleSignup}>
                         <LoginRegisterText>Registrarse</LoginRegisterText>
                     </LoginRegisterButton>

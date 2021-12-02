@@ -1,17 +1,20 @@
 // Import firebase
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import { getFirestore } from 'firebase/firestore';
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration, you have to paste here the object that comes from firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyCrsVoFZEXI4RtgEJFy_8wgQOsABS-4gX0",
-  authDomain: "proyectou2-a8618.firebaseapp.com",
-  projectId: "proyectou2-a8618",
-  storageBucket: "proyectou2-a8618.appspot.com",
-  messagingSenderId: "598153673654",
-  appId: "1:598153673654:web:88d07bff871c4d20e6df17"
+  apiKey: "AIzaSyAEGPFabc9x4tDjVN32zvSUWl60Kiq3X9Y",
+  authDomain: "expo-meseros.firebaseapp.com",
+  projectId: "expo-meseros",
+  storageBucket: "expo-meseros.appspot.com",
+  messagingSenderId: "403736722534",
+  appId: "1:403736722534:web:3d515a80ea02ecc4b601a7",
+  measurementId: "G-GS0LBBPZ1M"
 };
 
 // Initialize Firebase
@@ -24,5 +27,6 @@ if (firebase.apps.length === 0) {
 }
 
 const auth = firebase.auth();
+const db = getFirestore();
 
-export { auth };
+export { auth , db};
