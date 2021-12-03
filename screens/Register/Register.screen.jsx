@@ -10,11 +10,11 @@ import {FormInput} from '../../styledComponents/Inputs';
 //Buttons
 import { LoginRegisterButton , CreateAcountRef } from '../../styledComponents/Buttons';
 //Texts
-import {LoginRegisterText, LogInText} from '../../styledComponents/Texts';
+import {LoginRegisterText, LogInText , AuthTitle} from '../../styledComponents/Texts';
 
 //Firebase
 import {auth , db} from '../../firebase';
-import { collection , addDoc} from '@firebase/firestore';
+import { doc , setDoc} from '@firebase/firestore';
 
 const RegisterScreen = () => {
 
@@ -31,16 +31,13 @@ const RegisterScreen = () => {
         await auth
           .createUserWithEmailAndPassword(email, pwd)
           .then(async(userCredentials) => {
-            // then is a fullfilled promise
-            const user = userCredentials.user;
-            console.log(user.uid);
+            const docRef = doc(db , 'usuario' , userCredentials.user.email);
             try{
-                const docRef = await addDoc(collection(db , 'usuario'), {
-                    "correo": email,
-                    "contrasena": pwd,
-                    "nombre": nombre,
-                    "tipo": tipo,
-                });
+                await setDoc(docRef , {
+                    correo: email,
+                    nombre: nombre,
+                    tipo: tipo,
+                })
             }catch(e){
                     alert(e.message);
             };
@@ -58,8 +55,10 @@ const RegisterScreen = () => {
     return(
         <ContainerView>
             <ContentView>
-                <FormView>
-                    <Text>Registro</Text>
+                <FormView >
+                    <AuthTitle>
+                        Registro
+                    </AuthTitle>
                     <FormInput 
                     placeholder="Correo electronico"
                     value={email}
@@ -75,18 +74,21 @@ const RegisterScreen = () => {
                     value={nombre}
                     onChangeText={(text) => setNombre(text)}
                     />
-                    <Picker
-                        selectedValue={tipo}
-                        style={{ height: 50, width: 150 }}
-                        onValueChange={(itemValue, itemIndex) => setTipo(itemValue)}
-                    >
-                        <Picker.Item label="Mesero" value="mesero" />
-                        <Picker.Item label="Cliente" value="cliente" />
-                    </Picker>
-                    <LoginRegisterButton onPress={handleSignup}>
+                    <View style={styles.izq}>
+                        <Text>Tipo de cliente</Text>
+                        <Picker
+                            selectedValue={tipo}
+                            style={{ height: 50, width: 150 }}
+                            onValueChange={(itemValue, itemIndex) => setTipo(itemValue)}
+                        >
+                            <Picker.Item label="Mesero" value="mesero" />
+                            <Picker.Item label="Cliente" value="cliente" />
+                        </Picker>
+                    </View>
+                    <LoginRegisterButton style={styles.registrarseRef} onPress={handleSignup}>
                         <LoginRegisterText>Registrarse</LoginRegisterText>
                     </LoginRegisterButton>
-                    <TouchableOpacity onPress={LoginNavigation} style={styles.izq}>
+                    <TouchableOpacity style={styles.registrarseRef} onPress={LoginNavigation}>
                         <Text>Iniciar sesión</Text>
                     </TouchableOpacity>
                 </FormView>
@@ -96,9 +98,14 @@ const RegisterScreen = () => {
     
 }
 const styles = StyleSheet.create({
-    izq: {
-        left: -170,
-        marginTop: 15
+    izq:{
+        left: -65
+    },
+    registrarseRef: {
+        marginTop: 20,
+    },
+    abajo: {
+        marginTop: 40,
     }
 });
 

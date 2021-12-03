@@ -2,10 +2,11 @@ import styled from 'styled-components/native';
 
 export const FormInput = styled.TextInput`
     background-color: white;
-    padding-inline-start: 15px;
-    border-radius: 10px;
-    margin: 16px;
-    height: 4em;
-    font-size: 12px;
-    width: 37em;
+    font-size: 15px;
+    width: 95%;
+    border-radius: 50px;
+    margin: 10px;
+    height: 50px;
+    text-align: center;
+    margin-bottom: 20px;
 `;

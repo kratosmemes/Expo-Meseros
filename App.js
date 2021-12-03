@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 
+
 //Navigator import
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,7 +10,8 @@ import { NavigationContainer } from '@react-navigation/native';
 //Screens import
 import LoginScreen from './screens/Login';
 import RegisterScreen from './screens/Register';
-  import HomeScreen from './screens/Home';
+import HomeCliente from './screens/HomeCliente';
+import HomeMesero from './screens/HomeMesero';
 
 //Stack Navigator
 const Stack = createNativeStackNavigator();
@@ -17,7 +19,8 @@ const Stack = createNativeStackNavigator();
 export default function App() {
 
   return (
-    <NavigationContainer>
+    
+      <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Login" options={{headerShown: false}}>
           {(props) => <LoginScreen {...props} />}
@@ -25,19 +28,14 @@ export default function App() {
         <Stack.Screen name="Register" options={{headerShown: false}}>
           {(props)=> <RegisterScreen {...props}/>}
         </Stack.Screen>
-        <Stack.Screen name="Home" options={{headerShown: false}}>
-          {(props)=><HomeScreen {...props}/>}
+        <Stack.Screen name="HomeCliente" options={{headerShown: false}}>
+          {(props)=><HomeCliente {...props}/>}
+        </Stack.Screen>
+        <Stack.Screen name="HomeMesero" options={{headerShown: false}}>
+          {(props)=><HomeMesero {...props}/>}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

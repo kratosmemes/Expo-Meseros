@@ -7,8 +7,6 @@ export const LoginRegisterButton = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
     width: 50%;
-    margin-top: 1em;
-    left: -115px;
 `
 
 export const CreateAcountRef = styled.TouchableOpacity`
